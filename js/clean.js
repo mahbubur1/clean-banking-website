@@ -6,19 +6,22 @@ function getInputValue (inputId){
     inputField.value = '';
     return value;
 }
+  // get inner text from id
+  function getInnerTextById(id){
+      const getId = document.getElementById(id);
+      const getIdInText = getId.innerText;
+      const value = parseFloat (getIdInText);
+      return value;
+  }
  // set total amount in total field  
 function updateTotal (fieldId,amount){
-    const totalTag = document.getElementById(fieldId);
-    const totalTagText = totalTag.innerText;
-    const perviosTotal = parseFloat(totalTagText);
+    const perviosTotal = getInnerTextById(fieldId);
     const currentTotal = perviosTotal + amount;
-    totalTag.innerText = currentTotal;
+    document.getElementById(fieldId).innerText = currentTotal;
 }
  // update balance set 
  function updateBalance (amount,adding){
-     const balanceTag = document.getElementById('total-amount');
-     const balanceTagInText = balanceTag.innerText;
-     const perviosBalance = parseFloat(balanceTagInText);
+     const perviosBalance = getInnerTextById('total-amount')
      let currentBalance;
      if(adding == true){
         currentBalance = perviosBalance + amount;
@@ -26,7 +29,7 @@ function updateTotal (fieldId,amount){
     else{
         currentBalance = perviosBalance - amount;
      }
-     balanceTag.innerText = currentBalance;
+    document.getElementById('total-amount').innerText = currentBalance;
  }
  // deposit button click event listener added 
 document.getElementById('deposit-button').addEventListener('click',function(){
@@ -39,7 +42,8 @@ document.getElementById('deposit-button').addEventListener('click',function(){
  // withdraw button click event listener added 
  document.getElementById('withdraw-button').addEventListener('click',function(){
      const withdrawInput = getInputValue('withdraw-input');
-            if(withdrawInput > 0 ){
+     const balance = getInnerTextById('total-amount');
+            if(withdrawInput > 0 && withdrawInput <= balance){
                 updateTotal('withdraw-total',withdrawInput);
                 updateBalance(withdrawInput,false);
             }
