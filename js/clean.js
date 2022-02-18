@@ -31,12 +31,16 @@ function updateTotal (fieldId,amount){
  // deposit button click event listener added 
 document.getElementById('deposit-button').addEventListener('click',function(){
    const depositInput =  getInputValue ('deposit-input');
-             updateTotal('deposit-total',depositInput);
-             updateBalance(depositInput,true);
+        if( depositInput > 0 ){
+            updateTotal('deposit-total',depositInput);
+            updateBalance(depositInput,true);
+         }
 })
  // withdraw button click event listener added 
  document.getElementById('withdraw-button').addEventListener('click',function(){
      const withdrawInput = getInputValue('withdraw-input');
+            if(withdrawInput > 0 ){
                 updateTotal('withdraw-total',withdrawInput);
                 updateBalance(withdrawInput,false);
+            }
  })
