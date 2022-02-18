@@ -15,21 +15,28 @@ function updateTotal (fieldId,amount){
     totalTag.innerText = currentTotal;
 }
  // update balance set 
- function updateBalance (amount){
+ function updateBalance (amount,adding){
      const balanceTag = document.getElementById('total-amount');
      const balanceTagInText = balanceTag.innerText;
      const perviosBalance = parseFloat(balanceTagInText);
-     const currentBalance = perviosBalance + amount;
+     let currentBalance;
+     if(adding == true){
+        currentBalance = perviosBalance + amount;
+     }
+    else{
+        currentBalance = perviosBalance - amount;
+     }
      balanceTag.innerText = currentBalance;
  }
  // deposit button click event listener added 
 document.getElementById('deposit-button').addEventListener('click',function(){
    const depositInput =  getInputValue ('deposit-input');
              updateTotal('deposit-total',depositInput);
-             updateBalance(depositInput);
+             updateBalance(depositInput,true);
 })
  // withdraw button click event listener added 
  document.getElementById('withdraw-button').addEventListener('click',function(){
      const withdrawInput = getInputValue('withdraw-input');
                 updateTotal('withdraw-total',withdrawInput);
+                updateBalance(withdrawInput,false);
  })
